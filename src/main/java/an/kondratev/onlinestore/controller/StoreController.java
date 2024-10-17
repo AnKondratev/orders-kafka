@@ -6,6 +6,7 @@ import an.kondratev.onlinestore.model.Order;
 import an.kondratev.onlinestore.model.Product;
 import an.kondratev.onlinestore.service.OrderServiceInterface;
 import an.kondratev.onlinestore.service.ProductServiceInterface;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,18 @@ public class StoreController {
     private final OrderServiceInterface orderService;
     private final ObjectMapper objectMapper;
 
+    @PostMapping("create_product")
+    public ResponseEntity<Product> createProduct(@RequestBody String json) throws JsonProcessingException {
+        ProductDTO productDTO = objectMapper.readValue(json, ProductDTO.class);
+        return new ResponseEntity<>(productService.createProduct(productDTO), HttpStatus.CREATED);
+    }
+
+    @PostMapping("create_order")
+    public ResponseEntity<Order> createOrder(@RequestBody String json) throws JsonProcessingException {
+        OrderDTO orderDTO = objectMapper.readValue(json, OrderDTO.class);
+        return new ResponseEntity<>(orderService.createOrder(orderDTO), HttpStatus.CREATED);
+    }
+
     @GetMapping("all_products")
     public ResponseEntity<List<Product>> getAllProducts() {
         return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
@@ -30,12 +43,6 @@ public class StoreController {
     @GetMapping("product/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(productService.getProduct(id), HttpStatus.OK);
-
-    }
-
-    @PostMapping("create_product")
-    public ResponseEntity<Product> createProduct(@RequestBody ProductDTO productDTO) {
-        return new ResponseEntity<>(productService.createProduct(productDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("update_product")
@@ -49,14 +56,8 @@ public class StoreController {
         return HttpStatus.OK;
     }
 
-    @PostMapping("create_order")
-    public ResponseEntity<Order> createOrder(@RequestBody OrderDTO orderDTO) {
-        return new ResponseEntity<>(orderService.createOrder(orderDTO), HttpStatus.CREATED);
-    }
-
     @GetMapping("order/{id}")
     public ResponseEntity<Order> getOrderById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(orderService.getOrder(id), HttpStatus.OK);
     }
 }
-

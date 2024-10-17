@@ -8,8 +8,6 @@ import java.util.List;
 public interface ProductServiceInterface {
     Product getProduct(Long id);
 
-    Product getProduct(String name);
-
     Product createProduct(ProductDTO productDTO);
 
     Product updateProduct(ProductDTO productDTO);

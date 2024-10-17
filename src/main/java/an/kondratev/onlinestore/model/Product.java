@@ -36,9 +36,3 @@ public class Product {
     @JsonIgnore
     private Order order;
 }
-//productId (идентификатор продукта)
-// name (название продукта)
-// description (описание продукта)
-// price (цена продукта)
-// quantityInStock (количество на складе)
-

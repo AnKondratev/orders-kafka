@@ -50,11 +50,3 @@ public class Order {
         this.orderDate = LocalDateTime.now();
     }
 }
-
-//orderId (идентификатор заказа) +
-// customer (ссылка на объект Customer) +
-// products (список продуктов в заказе) +
-// orderDate (дата размещения заказа) +
-// shippingAddress (адрес доставки) +
-// totalPrice (общая стоимость заказа) +
-// orderStatus (статус заказа) +

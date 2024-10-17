@@ -22,11 +22,6 @@ public class ProductService implements ProductServiceInterface {
     }
 
     @Override
-    public Product getProduct(String name) {
-        return productRepository.findByName(name);
-    }
-
-    @Override
     public Product createProduct(ProductDTO productDTO) {
         return productRepository.save(productMapper.toEntity(productDTO));
     }

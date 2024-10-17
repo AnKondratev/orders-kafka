@@ -21,17 +21,4 @@ public class ProductMapper {
                 .build();
     }
 
-    public ProductDTO toDTO(Product product) {
-        if (product == null) {
-            return null;
-        }
-
-        return ProductDTO.builder()
-                .productIdDTO(product.getProductId())
-                .nameDTO(product.getName())
-                .descriptionDTO(product.getDescription())
-                .priceDTO(product.getPrice())
-                .quantityInStockDTO(product.getQuantityInStock())
-                .build();
-    }
 }
