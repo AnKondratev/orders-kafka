@@ -1,4 +1,4 @@
-package an.kondratev.onlinestore.model;
+package an.kondratev.orders.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -16,6 +16,10 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Table(name = "products")
 public class Product {
+    @ManyToOne()
+    @JsonIgnore
+    private Order order;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
@@ -32,7 +36,5 @@ public class Product {
     @Column(nullable = false)
     private Long quantityInStock;
 
-    @ManyToOne()
-    @JsonIgnore
-    private Order order;
+
 }

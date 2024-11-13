@@ -1,4 +1,4 @@
-package an.kondratev.onlinestore.dto;
+package an.kondratev.orders.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductDTO {
-
     private Long productIdDTO;
     private String nameDTO;
     private String descriptionDTO;

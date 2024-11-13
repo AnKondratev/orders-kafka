@@ -1,4 +1,4 @@
-package an.kondratev.onlinestore.exception;
+package an.kondratev.orders.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

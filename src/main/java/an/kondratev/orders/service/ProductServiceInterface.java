@@ -1,7 +1,7 @@
-package an.kondratev.onlinestore.service;
+package an.kondratev.orders.service;
 
-import an.kondratev.onlinestore.dto.ProductDTO;
-import an.kondratev.onlinestore.model.Product;
+import an.kondratev.orders.dto.ProductDTO;
+import an.kondratev.orders.model.Product;
 
 import java.util.List;
 

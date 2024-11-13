@@ -1,4 +1,4 @@
-package an.kondratev.onlinestore.model;
+package an.kondratev.orders.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
@@ -29,7 +29,6 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
-
     @Column(nullable = false)
     private LocalDateTime orderDate;
 
@@ -41,6 +40,9 @@ public class Order {
 
     @Column(nullable = false, length = 100)
     private String orderStatus;
+
+    @Column(nullable = false)
+    private boolean paymentStatus;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Product> products;

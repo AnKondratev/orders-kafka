@@ -1,11 +1,11 @@
-package an.kondratev.onlinestore.controller;
+package an.kondratev.orders.controller;
 
-import an.kondratev.onlinestore.dto.OrderDTO;
-import an.kondratev.onlinestore.dto.ProductDTO;
-import an.kondratev.onlinestore.model.Order;
-import an.kondratev.onlinestore.model.Product;
-import an.kondratev.onlinestore.service.OrderServiceInterface;
-import an.kondratev.onlinestore.service.ProductServiceInterface;
+import an.kondratev.orders.dto.OrderDTO;
+import an.kondratev.orders.dto.ProductDTO;
+import an.kondratev.orders.model.Order;
+import an.kondratev.orders.model.Product;
+import an.kondratev.orders.service.OrderServiceInterface;
+import an.kondratev.orders.service.ProductServiceInterface;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;

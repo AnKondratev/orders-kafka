@@ -1,12 +1,15 @@
 package an.kondratev.onlinestore.service;
 
-import an.kondratev.onlinestore.dto.OrderDTO;
-import an.kondratev.onlinestore.model.Customer;
-import an.kondratev.onlinestore.model.Order;
-import an.kondratev.onlinestore.model.Product;
-import an.kondratev.onlinestore.repository.CustomerRepository;
-import an.kondratev.onlinestore.repository.OrderRepository;
-import an.kondratev.onlinestore.repository.ProductRepository;
+import an.kondratev.orders.dto.OrderDTO;
+import an.kondratev.orders.mapper.CustomerMapper;
+import an.kondratev.orders.mapper.ProductMapper;
+import an.kondratev.orders.model.Customer;
+import an.kondratev.orders.model.Order;
+import an.kondratev.orders.model.Product;
+import an.kondratev.orders.repository.CustomerRepository;
+import an.kondratev.orders.repository.OrderRepository;
+import an.kondratev.orders.repository.ProductRepository;
+import an.kondratev.orders.service.OrderService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +32,9 @@ class OrderServiceTest {
         orderRepository = mock(OrderRepository.class);
         customerRepository = mock(CustomerRepository.class);
         productRepository = mock(ProductRepository.class);
-        orderService = new OrderService(orderRepository, customerRepository, productRepository, null);
+        ProductMapper productMapper = mock(ProductMapper.class);
+        CustomerMapper customerMapper = mock(CustomerMapper.class);
+        orderService = new OrderService(orderRepository, customerRepository, productRepository, productMapper, customerMapper);
     }
 
     @Test
@@ -42,10 +47,10 @@ class OrderServiceTest {
 
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setCustomerId(1L);
-        orderDTO.setProducts(List.of());
-        orderDTO.setShippingAddress("123 Street");
-        orderDTO.setOrderStatus("CREATED");
-        orderDTO.setTotalPrice(new BigDecimal("100.00"));
+        orderDTO.setProductsDTO(List.of());
+        orderDTO.setShippingAddressDTO("123 Street");
+        orderDTO.setOrderStatusDTO("CREATED");
+        orderDTO.setTotalPriceDTO(new BigDecimal("100.00"));
 
         Order savedOrder = new Order();
         savedOrder.setOrderId(1L);

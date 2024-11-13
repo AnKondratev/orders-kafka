@@ -1,4 +1,4 @@
-package an.kondratev.onlinestore.dto;
+package an.kondratev.orders.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,18 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderDTO {
+public class OrderSendDTO {
     private Long orderId;
-    private String shippingAddress;
+    private String customer;
     private BigDecimal totalPrice;
     private String orderStatus;
-    private List<ProductDTO> products;
-    private CustomerDTO customer;
-    private Long customerId;
+    private boolean paymentStatus;
 }

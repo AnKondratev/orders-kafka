@@ -1,9 +1,10 @@
 package an.kondratev.onlinestore.service;
 
-import an.kondratev.onlinestore.dto.ProductDTO;
-import an.kondratev.onlinestore.mapper.ProductMapper;
-import an.kondratev.onlinestore.model.Product;
-import an.kondratev.onlinestore.repository.ProductRepository;
+import an.kondratev.orders.dto.ProductDTO;
+import an.kondratev.orders.mapper.ProductMapper;
+import an.kondratev.orders.model.Product;
+import an.kondratev.orders.repository.ProductRepository;
+import an.kondratev.orders.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

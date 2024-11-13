@@ -1,14 +1,15 @@
-package an.kondratev.onlinestore.service;
+package an.kondratev.orders.service;
 
-import an.kondratev.onlinestore.dto.OrderDTO;
-import an.kondratev.onlinestore.dto.ProductDTO;
-import an.kondratev.onlinestore.mapper.ProductMapper;
-import an.kondratev.onlinestore.model.Customer;
-import an.kondratev.onlinestore.model.Order;
-import an.kondratev.onlinestore.model.Product;
-import an.kondratev.onlinestore.repository.CustomerRepository;
-import an.kondratev.onlinestore.repository.OrderRepository;
-import an.kondratev.onlinestore.repository.ProductRepository;
+import an.kondratev.orders.dto.OrderDTO;
+import an.kondratev.orders.dto.ProductDTO;
+import an.kondratev.orders.mapper.CustomerMapper;
+import an.kondratev.orders.mapper.ProductMapper;
+import an.kondratev.orders.model.Customer;
+import an.kondratev.orders.model.Order;
+import an.kondratev.orders.model.Product;
+import an.kondratev.orders.repository.CustomerRepository;
+import an.kondratev.orders.repository.OrderRepository;
+import an.kondratev.orders.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,7 @@ public class OrderService implements OrderServiceInterface {
     private final CustomerRepository customerRepository;
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
+    private final CustomerMapper customerMapper;
 
 
     @Override
@@ -32,25 +34,19 @@ public class OrderService implements OrderServiceInterface {
         return orderRepository.findById(id).orElse(null);
     }
 
-
     @Override
     public Order createOrder(OrderDTO orderDTO) {
         Customer customer;
         if (orderDTO.getCustomerId() != null) {
             customer = customerRepository.findById(orderDTO.getCustomerId()).orElse(null);
         } else {
-            customer = Customer.builder()
-                    .firstName(orderDTO.getCustomer().getFirstName())
-                    .lastName(orderDTO.getCustomer().getLastName())
-                    .email(orderDTO.getCustomer().getEmail())
-                    .phone(orderDTO.getCustomer().getPhone())
-                    .build();
+            customer = customerMapper.toEntity(orderDTO.getCustomerDTO());
             customer = customerRepository.save(customer);
         }
 
         List<Product> productList = new ArrayList<>();
 
-        for (ProductDTO productDTO : orderDTO.getProducts()) {
+        for (ProductDTO productDTO : orderDTO.getProductsDTO()) {
             Optional<Product> productOpt = productRepository.findById(productDTO.getProductIdDTO());
 
             if (productOpt.isPresent()) {
@@ -65,8 +61,9 @@ public class OrderService implements OrderServiceInterface {
                 .customer(customer)
                 .products(productList)
                 .totalPrice(calculateTotalPrice(productList))
-                .orderStatus(orderDTO.getOrderStatus())
-                .shippingAddress(orderDTO.getShippingAddress())
+                .orderStatus(orderDTO.getOrderStatusDTO())
+                .shippingAddress(orderDTO.getShippingAddressDTO())
+                .paymentStatus(false)
                 .build();
         return orderRepository.save(order);
     }
@@ -79,20 +76,31 @@ public class OrderService implements OrderServiceInterface {
 
     @Override
     public Order updateOrder(OrderDTO orderDTO) {
-
-        Order existingOrder = orderRepository.findById(orderDTO.getOrderId())
+        Order existingOrder = orderRepository.findById(orderDTO.getOrderIdDTO())
                 .orElseThrow(() -> new RuntimeException("Order not found"));
 
-        if (orderDTO.getProducts() != null) {
-            List<Product> productList = orderDTO.getProducts().stream()
+        if (orderDTO.getProductsDTO() != null) {
+            List<Product> productList = orderDTO.getProductsDTO().stream()
                     .map(productMapper::toEntity)
                     .collect(Collectors.toList());
             existingOrder.setProducts(productList);
         }
 
-        existingOrder.setOrderStatus(orderDTO.getOrderStatus());
-        existingOrder.setTotalPrice(orderDTO.getTotalPrice());
-        existingOrder.setShippingAddress(orderDTO.getShippingAddress());
+        if (orderDTO.getOrderStatusDTO() != null) {
+            existingOrder.setOrderStatus(orderDTO.getOrderStatusDTO());
+        }
+
+        if (orderDTO.getShippingAddressDTO() != null) {
+            existingOrder.setShippingAddress(orderDTO.getShippingAddressDTO());
+        }
+
+        if (orderDTO.getTotalPriceDTO() != null) {
+            existingOrder.setTotalPrice(orderDTO.getTotalPriceDTO());
+        }
+
+        if (orderDTO.isPaymentStatusDTO() != existingOrder.isPaymentStatus()) {
+            existingOrder.setPaymentStatus(orderDTO.isPaymentStatusDTO());
+        }
 
         return orderRepository.save(existingOrder);
     }

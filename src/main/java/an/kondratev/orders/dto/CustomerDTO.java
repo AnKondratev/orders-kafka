@@ -1,4 +1,4 @@
-package an.kondratev.onlinestore.dto;
+package an.kondratev.orders.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CustomerDTO {
-    private Long customerId;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
+    private Long customerIdDTO;
+    private String firstNameDTO;
+    private String lastNameDTO;
+    private String emailDTO;
+    private String phoneDTO;
 }

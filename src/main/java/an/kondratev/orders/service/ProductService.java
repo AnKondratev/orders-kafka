@@ -1,9 +1,9 @@
-package an.kondratev.onlinestore.service;
+package an.kondratev.orders.service;
 
-import an.kondratev.onlinestore.dto.ProductDTO;
-import an.kondratev.onlinestore.mapper.ProductMapper;
-import an.kondratev.onlinestore.model.Product;
-import an.kondratev.onlinestore.repository.ProductRepository;
+import an.kondratev.orders.dto.ProductDTO;
+import an.kondratev.orders.mapper.ProductMapper;
+import an.kondratev.orders.model.Product;
+import an.kondratev.orders.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

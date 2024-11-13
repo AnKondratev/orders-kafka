@@ -1,4 +1,4 @@
-package an.kondratev.onlinestore.model;
+package an.kondratev.orders.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;

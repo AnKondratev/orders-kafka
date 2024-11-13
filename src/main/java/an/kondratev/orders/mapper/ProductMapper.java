@@ -1,7 +1,7 @@
-package an.kondratev.onlinestore.mapper;
+package an.kondratev.orders.mapper;
 
-import an.kondratev.onlinestore.dto.ProductDTO;
-import an.kondratev.onlinestore.model.Product;
+import an.kondratev.orders.dto.ProductDTO;
+import an.kondratev.orders.model.Product;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,7 +13,7 @@ public class ProductMapper {
         }
 
         return Product.builder()
-                .productId(productDTO.getProductIdDTO())
+
                 .name(productDTO.getNameDTO())
                 .description(productDTO.getDescriptionDTO())
                 .price(productDTO.getPriceDTO())

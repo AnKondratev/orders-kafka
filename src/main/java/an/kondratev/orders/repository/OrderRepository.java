@@ -1,6 +1,6 @@
-package an.kondratev.onlinestore.repository;
+package an.kondratev.orders.repository;
 
-import an.kondratev.onlinestore.model.Order;
+import an.kondratev.orders.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
