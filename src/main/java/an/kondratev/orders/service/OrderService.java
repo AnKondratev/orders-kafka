@@ -11,6 +11,7 @@ import an.kondratev.orders.repository.CustomerRepository;
 import an.kondratev.orders.repository.OrderRepository;
 import an.kondratev.orders.repository.ProductRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class OrderService implements OrderServiceInterface {
@@ -31,6 +33,10 @@ public class OrderService implements OrderServiceInterface {
 
     @Override
     public Order getOrder(Long id) {
+        Order order = orderRepository.findById(id).orElse(null);
+        if (order == null) {
+            log.error("Order #{} not found", id);
+        }
         return orderRepository.findById(id).orElse(null);
     }
 
@@ -65,10 +71,14 @@ public class OrderService implements OrderServiceInterface {
                 .shippingAddress(orderDTO.getShippingAddressDTO())
                 .paymentStatus(false)
                 .build();
+        log.info("Order created: {}", order);
         return orderRepository.save(order);
     }
 
     private BigDecimal calculateTotalPrice(List<Product> products) {
+        if (products.isEmpty()) {
+            log.error("No products found");
+        }
         return products.stream()
                 .map(Product::getPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -76,8 +86,14 @@ public class OrderService implements OrderServiceInterface {
 
     @Override
     public Order updateOrder(OrderDTO orderDTO) {
+
         Order existingOrder = orderRepository.findById(orderDTO.getOrderIdDTO())
                 .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        if (existingOrder == null) {
+            log.error("Order don't update, #{} not found", orderDTO.getOrderIdDTO());
+            return null;
+        }
 
         if (orderDTO.getProductsDTO() != null) {
             List<Product> productList = orderDTO.getProductsDTO().stream()
@@ -107,6 +123,7 @@ public class OrderService implements OrderServiceInterface {
 
     @Override
     public void deleteOrder(Long orderId) {
+        log.info("Deleting order {}", orderId);
         orderRepository.deleteById(orderId);
     }
 
