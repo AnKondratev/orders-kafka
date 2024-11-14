@@ -5,6 +5,13 @@ spring:
     password: 1384
     driver-class-name: org.postgresql.Driver
 
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: 1
+
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -17,3 +24,6 @@ logging:
     a.k.p: ERROR
     a.k: ERROR
     an.kondratev: INFO
+
+
+

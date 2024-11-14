@@ -1,12 +1,21 @@
-2024-11-13 16:50:25 ERROR o.h.e.jdbc.spi.SqlExceptionHelper - ERROR: null value in column "quantity_in_stock" of relation "products" violates not-null constraint
-  Подробности: Failing row contains (1222.75, null, 2, null, Продукт F, Описание продукта F).
-2024-11-13 16:50:25 ERROR a.k.o.e.GlobalExceptionHandler - could not execute statement [ERROR: null value in column "quantity_in_stock" of relation "products" violates not-null constraint
-  Подробности: Failing row contains (1222.75, null, 2, null, Продукт F, Описание продукта F).] [insert into products (description,name,order_order_id,price,quantity_in_stock) values (?,?,?,?,?) returning product_id]; SQL [insert into products (description,name,order_order_id,price,quantity_in_stock) values (?,?,?,?,?) returning product_id]; constraint [quantity_in_stock" of relation "products]
-2024-11-13 16:50:30 ERROR a.k.o.e.GlobalExceptionHandler - The given id must not be null
-2024-11-13 16:50:33 ERROR o.h.e.jdbc.spi.SqlExceptionHelper - ERROR: null value in column "shipping_address" of relation "orders" violates not-null constraint
-  Подробности: Failing row contains (f, 1222.75, 3, 2024-11-13 16:50:33.887252, 2, Processing, null).
-2024-11-13 16:50:33 ERROR a.k.o.e.GlobalExceptionHandler - could not execute statement [ERROR: null value in column "shipping_address" of relation "orders" violates not-null constraint
-  Подробности: Failing row contains (f, 1222.75, 3, 2024-11-13 16:50:33.887252, 2, Processing, null).] [insert into orders (customer_id,order_date,order_status,payment_status,shipping_address,total_price) values (?,?,?,?,?,?) returning order_id]; SQL [insert into orders (customer_id,order_date,order_status,payment_status,shipping_address,total_price) values (?,?,?,?,?,?) returning order_id]; constraint [shipping_address" of relation "orders]
-2024-11-13 16:50:40 ERROR a.k.orders.service.OrderService - Order #1123 not found
-2024-11-13 16:50:40 ERROR a.k.o.controller.MessagesController - Order #1123not found
-2024-11-13 16:50:40 ERROR a.k.o.e.GlobalExceptionHandler - Order #1123 not found
+2024-11-14 19:28:49 ERROR a.k.orders.kafka.KafkaProducer - Error while sending order: Invalid value null for configuration value.serializer: must be non-null.
+2024-11-14 19:28:49 ERROR a.k.o.e.GlobalExceptionHandler - Invalid value null for configuration value.serializer: must be non-null.
+2024-11-14 19:29:24 ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to bind properties under 'spring.kafka.producer.value-serializer' to java.lang.Class<?>:
+
+    Property: spring.kafka.producer.value-serializer
+    Value: "org.springframework.kafka.support.serializer.StringSerializer"
+    Origin: class path resource [application.yaml] - 13:25
+    Reason: failed to convert java.lang.String to java.lang.Class<?> (caused by java.lang.ClassNotFoundException: org.springframework.kafka.support.serializer.StringSerializer)
+
+Action:
+
+Update your application's configuration
+
